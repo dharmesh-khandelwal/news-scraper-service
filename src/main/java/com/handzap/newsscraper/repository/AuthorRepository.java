@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+package com.handzap.newsscraper.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.handzap.newsscraper.entity.Author;
+
+/**
+ * @author Dharmesh Khandelwal
+ * @since 1.0.0
+ *
+ */
+@Repository
+public interface AuthorRepository extends JpaRepository<Author, Long> {
+
+	Optional<Author> findByAuthorName(String name);
+
+}

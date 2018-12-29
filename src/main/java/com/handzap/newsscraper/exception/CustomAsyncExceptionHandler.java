@@ -1,4 +1,4 @@
-package com.handzap.newsscraperservice.exception;
+package com.handzap.newsscraper.exception;
 
 import java.lang.reflect.Method;
 

@@ -1,4 +1,4 @@
-package com.handzap.newsscraperservice.entity;
+package com.handzap.newsscraper.entity;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +27,8 @@ public class BaseEntity {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
@@ -41,13 +42,33 @@ public class BaseEntity {
 	}
 
 	/**
-	 * @param createdDateTime the createdDateTime to set
+	 * @param createdDateTime
+	 *            the createdDateTime to set
 	 */
 	public void setCreatedDateTime(LocalDateTime createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @param createdBy
+	 * @param createdDateTime
+	 */
+	public BaseEntity(String createdBy, LocalDateTime createdDateTime) {
+		super();
+		this.createdBy = createdBy;
+		this.createdDateTime = createdDateTime;
+	}
+
+	/**
+	 * 
+	 */
+	public BaseEntity() {
+		super();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -59,29 +80,38 @@ public class BaseEntity {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof BaseEntity)) {
 			return false;
+		}
 		BaseEntity other = (BaseEntity) obj;
 		if (createdBy == null) {
-			if (other.createdBy != null)
+			if (other.createdBy != null) {
 				return false;
-		} else if (!createdBy.equals(other.createdBy))
+			}
+		} else if (!createdBy.equals(other.createdBy)) {
 			return false;
+		}
 		if (createdDateTime == null) {
-			if (other.createdDateTime != null)
+			if (other.createdDateTime != null) {
 				return false;
-		} else if (!createdDateTime.equals(other.createdDateTime))
+			}
+		} else if (!createdDateTime.equals(other.createdDateTime)) {
 			return false;
+		}
 		return true;
 	}
-	
+
 }

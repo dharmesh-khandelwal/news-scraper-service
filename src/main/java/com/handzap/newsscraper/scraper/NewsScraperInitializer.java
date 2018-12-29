@@ -1,11 +1,9 @@
-package com.handzap.newsscraperservice.scraper;
+package com.handzap.newsscraper.scraper;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.handzap.newsscraperservice.asynctask.NewsScraperTask;
 
 /**
  * @author Dharmesh Khandelwal
@@ -13,14 +11,14 @@ import com.handzap.newsscraperservice.asynctask.NewsScraperTask;
  *
  */
 @Component
-public class NewsScraper {
+public class NewsScraperInitializer {
 
 	@Autowired
-	NewsScraperTask newsScraperTask;
+	NewsScraperAsyncTask newsScraperAsyncTask;
 
 	@PostConstruct
 	public void init() {
-		newsScraperTask.performScraping();
+		newsScraperAsyncTask.performScraping();
 	}
 
 }
