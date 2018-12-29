@@ -36,3 +36,45 @@ Go to http://localhost:8080/h2-console
 
 JDBC URL will be `jdbc:h2:mem:news_scraper_db`
 
+## Use cases
+
+1. Search available authors
+
+**Request**
+
+```
+http://localhost:8080/v1.0/authors
+```
+
+**Output**
+
+![Search available authors Output](_images/getAllAuthorsOutput.png)
+
+2. Search article based on author name
+
+**Request**
+
+```
+http://localhost:8080/v1.0/articles?authorName=re
+```
+
+![Search article based on author name Input](_images/getArticleByAuthorNameInput.png)
+
+**Output**
+
+![Search article based on author name Output](_images/getArticleByAuthorNameOutput.png)
+
+3. Search article based on text and description
+
+**Request**
+
+```
+http://localhost:8080/v1.0/articles?description=is&title=the
+```
+
+![Search article based on text and description Input](_images/getArticleByTitleAndDescriptionInput.png)
+
+**Output**
+
+![Search article based on text and description Output](_images/getArticleByTitleAndDescription.png)
+
