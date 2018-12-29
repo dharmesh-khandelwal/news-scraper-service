@@ -1,4 +1,4 @@
-package com.handzap.newsscraper.scraper;
+package com.handzap.newsscraper.init;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,11 @@ import com.handzap.newsscraper.service.NewsArticleService;
 @Component
 public class NewsScraperAsyncTask {
 
+	@Value("${handzap.newsscraper.url-to-scrap}")
+	private String newsScrapUrl;
+
 	@Autowired
-	NewsArticleService newsArticleService;
+	private NewsArticleService newsArticleService;
 
 	private static final Executor EXCEUTOR = Executors.newCachedThreadPool();
 
@@ -40,11 +44,10 @@ public class NewsScraperAsyncTask {
 		List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
 		HtmlPage page;
 
-		String baseUrl = "https://www.thehindu.com/archive/web/2018/12/27/";
 		WebClient client = setupClient();
 
 		try {
-			page = client.getPage(baseUrl);
+			page = client.getPage(newsScrapUrl);
 			itemList = page.getByXPath("//*[@class='archive-list']/li/a");
 		} catch (FailingHttpStatusCodeException | IOException e) {
 			e.printStackTrace();
@@ -96,9 +99,7 @@ public class NewsScraperAsyncTask {
 	private Void errorHandle(Throwable e) {
 		if (e != null) {
 			e.printStackTrace();
-
 		}
 		return null;
 	}
-
 }

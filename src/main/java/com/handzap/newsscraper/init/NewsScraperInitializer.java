@@ -1,4 +1,4 @@
-package com.handzap.newsscraper.scraper;
+package com.handzap.newsscraper.init;
 
 import javax.annotation.PostConstruct;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class NewsScraperInitializer {
 
 	@Autowired
-	NewsScraperAsyncTask newsScraperAsyncTask;
+	private NewsScraperAsyncTask newsScraperAsyncTask;
 
 	@PostConstruct
 	public void init() {

@@ -3,6 +3,7 @@
  */
 package com.handzap.newsscraper.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,8 @@ import com.handzap.newsscraper.entity.Author;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-	Optional<Author> findByAuthorName(String name);
+	Optional<Author> findByAuthorNameIgnoreCase(String name);
+
+	List<Author> findByAuthorNameIgnoreCaseContaining(String name);
 
 }
