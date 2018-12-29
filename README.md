@@ -10,14 +10,18 @@ The scraping url and db properties are configurable through application.properti
 
 ## How to run
 
-1. Using maven plugin
+`Note: Once application starts, scraping will continue in background thread. Swagger can still be used to interact with api during this time.`
+
+Application swagger can be found at http://localhost:8080/swagger-ui.html#/News_Scrapper
+
+1. Run using maven plugin
 
 To run by maven plugin, run below command:
 ```
 mvn spring-boot:run
 ```
 
-2. Using Executable Jar
+2. Run using executable jar
 
 To create excutable jar, run below command:
 ```
@@ -27,8 +31,6 @@ Then run the application by going tp target folder and running:
 ```
 java -jar news-scraper-service-1.0.0-SNAPSHOT.jar
 ```
-
-Application swagger can be found at http://localhost:8080/swagger-ui.html#/News_Scrapper
 
 ## H2 DB web interface
 
