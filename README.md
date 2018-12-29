@@ -3,7 +3,7 @@ Web service to scrap news articles and query scrap data using REST endpoints
 
 It scraps the configured url for news article and stores then in database. Then this data can be searched using REST api.
 
-Tech stack: Java, Spring Boot, Spring Data Jpa, HtmlUnit, Swagger. Database used is h2 db.
+Tech stack: **Java, Spring Boot, Spring Data Jpa, HtmlUnit, Swagger**. Database used is **h2** db.
 
 ## Configuration
 The scraping url and db properties are configurable through application.properties in `src/main/resources`.
