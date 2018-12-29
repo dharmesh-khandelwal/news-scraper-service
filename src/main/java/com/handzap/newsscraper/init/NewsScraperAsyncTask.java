@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +43,6 @@ public class NewsScraperAsyncTask {
 	@Autowired
 	private NewsArticleService newsArticleService;
 
-	private static final Executor EXCEUTOR = Executors.newCachedThreadPool();
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(NewsScraperAsyncTask.class);
 
 	/**
@@ -69,8 +65,8 @@ public class NewsScraperAsyncTask {
 			LOGGER.error("Error ocurred while getting page: {}", e.getMessage());
 		}
 
-		itemList.parallelStream().forEach(htmlAnchor -> completableFutures.add(CompletableFuture
-				.runAsync(() -> getArticleDetails(htmlAnchor), EXCEUTOR).exceptionally(this::errorHandle)));
+		itemList.parallelStream().forEach(htmlAnchor -> completableFutures
+				.add(CompletableFuture.runAsync(() -> getArticleDetails(htmlAnchor)).exceptionally(this::errorHandle)));
 
 		CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[completableFutures.size()])).join();
 		client.close();
