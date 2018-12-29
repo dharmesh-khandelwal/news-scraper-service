@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * News scraping initializer class to start scrapping process
+ * News scraping initializer class to start scraping process by calling
+ * {@link NewsScraperAsyncTask}
  * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
@@ -23,7 +24,7 @@ public class NewsScraperInitializer {
 
 	/**
 	 * This method is executed automatically when spring dependency injection is
-	 * complete. This function starts scrapping process in asynchronous way.
+	 * complete. This function starts scraping process in asynchronous way.
 	 */
 	@PostConstruct
 	public void init() {

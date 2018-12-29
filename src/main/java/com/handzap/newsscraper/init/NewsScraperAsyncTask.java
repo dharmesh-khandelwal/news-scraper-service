@@ -82,8 +82,7 @@ public class NewsScraperAsyncTask {
 	 * and saves the article in db
 	 * 
 	 * @param htmlAnchor
-	 * @throws ScrappingException
-	 * @throws IOException
+	 *            htmlAnchor
 	 */
 	private void getArticleDetails(HtmlAnchor htmlAnchor) {
 		String title = null;
@@ -98,7 +97,7 @@ public class NewsScraperAsyncTask {
 			HtmlElement descriptionElement = postPage.getFirstByXPath(NewsScraperConstant.XPATH_NEWS_DESCRIPTION);
 			description = descriptionElement == null ? NewsScraperConstant.NA : descriptionElement.asText();
 		} catch (IOException e) {
-			LOGGER.error("Error ocurred while scrapping article: {}", e.getMessage());
+			LOGGER.error("Error ocurred while scraping article: {}", e.getMessage());
 		}
 		newsArticleService.saveArticle(title, author, description);
 		LOGGER.info("Scraped article with title: {}", title);
@@ -125,7 +124,7 @@ public class NewsScraperAsyncTask {
 	 */
 	private Void errorHandle(Throwable e) {
 		if (e != null) {
-			LOGGER.error("Error ocurred while scrapping: {}", e.getMessage());
+			LOGGER.error("Error ocurred while scraping: {}", e.getMessage());
 		}
 		return null;
 	}
