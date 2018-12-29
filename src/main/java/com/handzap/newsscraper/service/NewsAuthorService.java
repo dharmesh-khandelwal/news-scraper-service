@@ -5,6 +5,7 @@ package com.handzap.newsscraper.service;
 
 import com.handzap.newsscraper.dto.AuthorDTO;
 import com.handzap.newsscraper.dto.ResponseDTO;
+import com.handzap.newsscraper.exception.DtoEntityMappingException;
 
 /**
  * @author Dharmesh Khandelwal
@@ -15,7 +16,8 @@ public interface NewsAuthorService {
 
 	/**
 	 * @return
+	 * @throws DtoEntityMappingException 
 	 */
-	ResponseDTO<AuthorDTO> getAllAuthors();
+	ResponseDTO<AuthorDTO> getAllAuthors() throws DtoEntityMappingException;
 
 }

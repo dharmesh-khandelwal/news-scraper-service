@@ -7,6 +7,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -17,6 +19,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.handzap.newsscraper.constant.NewsScraperConstant;
 import com.handzap.newsscraper.entity.Author;
 import com.handzap.newsscraper.service.NewsArticleService;
 
@@ -29,28 +32,28 @@ import com.handzap.newsscraper.service.NewsArticleService;
 public class NewsScraperAsyncTask {
 
 	@Value("${handzap.newsscraper.url-to-scrap}")
-	private String newsScrapUrl;
+	private String newsUrl;
 
 	@Autowired
 	private NewsArticleService newsArticleService;
 
 	private static final Executor EXCEUTOR = Executors.newCachedThreadPool();
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsScraperAsyncTask.class);
+
 	@Async
 	public void performScraping() {
-		System.out.println(String.format("%s running in %s", getClass().getSimpleName(), Thread.currentThread()));
-
+		LOGGER.info("{} running in {}", getClass().getSimpleName(), Thread.currentThread());
+		LOGGER.info("Started scraping...");
 		List<HtmlAnchor> itemList = new ArrayList<>();
 		List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
 		HtmlPage page;
-
 		WebClient client = setupClient();
-
 		try {
-			page = client.getPage(newsScrapUrl);
-			itemList = page.getByXPath("//*[@class='archive-list']/li/a");
+			page = client.getPage(newsUrl);
+			itemList = page.getByXPath(NewsScraperConstant.XPATH_NEWS_LIST);
 		} catch (FailingHttpStatusCodeException | IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error ocurred while getting page: {}", e.getMessage());
 		}
 
 		itemList.parallelStream().forEach(htmlAnchor -> completableFutures.add(CompletableFuture
@@ -58,32 +61,31 @@ public class NewsScraperAsyncTask {
 
 		CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[completableFutures.size()])).join();
 		client.close();
+		LOGGER.info("Scraping Complete.");
 	}
 
 	/**
 	 * @param htmlAnchor
+	 * @throws ScrappingException
 	 * @throws IOException
 	 */
 	private void getArticleDetails(HtmlAnchor htmlAnchor) {
-		System.out.println(String.format("%s running in %s", getClass().getSimpleName(), Thread.currentThread()));
-
 		String title = null;
 		Author author = null;
 		String description = null;
 		try {
 			HtmlPage postPage = htmlAnchor.click();
-			HtmlElement titleElement = postPage.getFirstByXPath("//*[@class='title']");
+			HtmlElement titleElement = postPage.getFirstByXPath(NewsScraperConstant.XPATH_NEWS_TITLE);
 			title = titleElement.asText();
-
-			HtmlAnchor authorAnchor = postPage.getFirstByXPath("//*[contains(@class, 'auth-nm')]");
-			author = new Author(authorAnchor == null ? "NA" : authorAnchor.asText());
-
-			HtmlElement descriptionElement = postPage.getFirstByXPath("//*[contains(@id, 'content-body')]");
-			description = descriptionElement == null ? "NA" : descriptionElement.asText();
+			HtmlAnchor authorAnchor = postPage.getFirstByXPath(NewsScraperConstant.XPATH_NEWS_AUTHOR);
+			author = new Author(authorAnchor == null ? NewsScraperConstant.NA : authorAnchor.asText());
+			HtmlElement descriptionElement = postPage.getFirstByXPath(NewsScraperConstant.XPATH_NEWS_DESCRIPTION);
+			description = descriptionElement == null ? NewsScraperConstant.NA : descriptionElement.asText();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error ocurred while scrapping article: {}", e.getMessage());
 		}
 		newsArticleService.saveArticle(title, author, description);
+		LOGGER.info("Scraped article with title: {}", title);
 	}
 
 	/**
@@ -98,7 +100,7 @@ public class NewsScraperAsyncTask {
 
 	private Void errorHandle(Throwable e) {
 		if (e != null) {
-			e.printStackTrace();
+			LOGGER.error("Error ocurred while scrapping: {}", e.getMessage());
 		}
 		return null;
 	}

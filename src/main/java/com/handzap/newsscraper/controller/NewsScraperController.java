@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.handzap.newsscraper.dto.ArticleDTO;
 import com.handzap.newsscraper.dto.AuthorDTO;
 import com.handzap.newsscraper.dto.ResponseDTO;
+import com.handzap.newsscraper.exception.DtoEntityMappingException;
 import com.handzap.newsscraper.service.NewsArticleService;
 import com.handzap.newsscraper.service.NewsAuthorService;
 
@@ -36,18 +37,18 @@ public class NewsScraperController {
 	NewsArticleService newsArticleService;
 
 	@GetMapping(value = "/authors")
-	public ResponseEntity<ResponseDTO<AuthorDTO>> getAllAuthors() {
+	public ResponseEntity<ResponseDTO<AuthorDTO>> getAllAuthors() throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsAuthorService.getAllAuthors(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/articles", params = "authorName")
-	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByAuthor(@RequestParam String authorName) {
+	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByAuthor(@RequestParam String authorName) throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsArticleService.getArticlesByAuthor(authorName), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/articles", params = { "title", "description" })
 	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByTitleAndDescription(@RequestParam String title,
-			@RequestParam String description) {
+			@RequestParam String description) throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsArticleService.getArticlesByTitleAndDescription(title, description),
 				HttpStatus.OK);
 	}

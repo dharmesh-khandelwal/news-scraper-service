@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseEntity {
 
-	@Column(name = "cr_by", nullable = false, length = 24)
+	@Column(name = "cr_by", nullable = false)
 	private String createdBy;
 
 	@Column(name = "cr_dtimes", nullable = false)

@@ -20,6 +20,7 @@ import com.handzap.newsscraper.dto.ArticleDTO;
 import com.handzap.newsscraper.dto.ResponseDTO;
 import com.handzap.newsscraper.entity.Article;
 import com.handzap.newsscraper.entity.Author;
+import com.handzap.newsscraper.exception.DtoEntityMappingException;
 import com.handzap.newsscraper.repository.ArticleRepository;
 import com.handzap.newsscraper.repository.AuthorRepository;
 import com.handzap.newsscraper.service.NewsArticleService;
@@ -54,7 +55,7 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 	 * lang.String)
 	 */
 	@Override
-	public ResponseDTO<ArticleDTO> getArticlesByAuthor(String authorName) {
+	public ResponseDTO<ArticleDTO> getArticlesByAuthor(String authorName) throws DtoEntityMappingException {
 		Set<Article> fetchedArticles = new HashSet<>();
 		ResponseDTO<ArticleDTO> authorResponseDTO = new ResponseDTO<>();
 		List<Author> fetchedAuthors = authorRepository.findByAuthorNameIgnoreCaseContaining(authorName);
@@ -66,7 +67,7 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 			articles = modelMapper.map(fetchedArticles, new TypeToken<List<ArticleDTO>>() {
 			}.getType());
 		} catch (IllegalArgumentException | ConfigurationException | MappingException exception) {
-			exception.printStackTrace();
+			throw new DtoEntityMappingException(exception);
 		}
 		authorResponseDTO.setResponse(articles);
 		return authorResponseDTO;
@@ -79,7 +80,7 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 	 * getArticlesByTitleAndDescription(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ResponseDTO<ArticleDTO> getArticlesByTitleAndDescription(String title, String description) {
+	public ResponseDTO<ArticleDTO> getArticlesByTitleAndDescription(String title, String description) throws DtoEntityMappingException {
 		ResponseDTO<ArticleDTO> authorResponseDTO = new ResponseDTO<>();
 		List<Article> fetchedArticles = articleRepository
 				.findArticlesByTitleIgnoreCaseContainingAndDescriptionIgnoreCaseContaining(title, description);
@@ -88,7 +89,7 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 			articles = modelMapper.map(fetchedArticles, new TypeToken<List<ArticleDTO>>() {
 			}.getType());
 		} catch (IllegalArgumentException | ConfigurationException | MappingException exception) {
-			exception.printStackTrace();
+			throw new DtoEntityMappingException(exception);
 		}
 		authorResponseDTO.setResponse(articles);
 		return authorResponseDTO;

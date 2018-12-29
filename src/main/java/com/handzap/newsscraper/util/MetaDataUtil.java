@@ -5,6 +5,7 @@ import java.time.ZoneId;
 
 import org.springframework.stereotype.Component;
 
+import com.handzap.newsscraper.constant.NewsScraperConstant;
 import com.handzap.newsscraper.entity.BaseEntity;
 
 /**
@@ -19,8 +20,8 @@ import com.handzap.newsscraper.entity.BaseEntity;
 public class MetaDataUtil {
 
 	public <T extends BaseEntity> T setMetaData(T entity) {
-		String contextUser = "defaultadmin@handzap.com";
-		LocalDateTime createdDateTime = LocalDateTime.now(ZoneId.of("UTC"));
+		String contextUser = NewsScraperConstant.DEFAULTADMIN;
+		LocalDateTime createdDateTime = LocalDateTime.now(ZoneId.of(NewsScraperConstant.UTC));
 		entity.setCreatedBy(contextUser);
 		entity.setCreatedDateTime(createdDateTime);
 		return entity;

@@ -32,11 +32,11 @@ public class Article extends BaseEntity {
 	@JoinColumn(name = "author_id", nullable = false)
 	private Author author;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
 	@Lob
-	@Column(name = "description")
+	@Column(name = "description", nullable = false)
 	private String description;
 
 	/**

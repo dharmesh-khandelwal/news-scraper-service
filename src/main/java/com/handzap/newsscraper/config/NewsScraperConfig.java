@@ -72,9 +72,7 @@ public class NewsScraperConfig implements AsyncConfigurer {
 	@Override
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setThreadNamePrefix("scrapper-thread-");
 		executor.initialize();
-
 		return executor;
 	}
 

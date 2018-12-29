@@ -28,10 +28,10 @@ public class Author extends BaseEntity {
 	@Id
 	@GenericGenerator(name = IdGeneratorUtil.ID_GENERATOR, strategy = "com.handzap.newsscraper.util.IdGeneratorUtil")
 	@GeneratedValue(generator = IdGeneratorUtil.ID_GENERATOR)
-	@Column(name = "author_id")
+	@Column(name = "author_id", nullable = false)
 	private String id;
 
-	@Column(name = "author_name")
+	@Column(name = "author_name", nullable = false)
 	private String authorName;
 
 	@OneToMany(mappedBy = "author")

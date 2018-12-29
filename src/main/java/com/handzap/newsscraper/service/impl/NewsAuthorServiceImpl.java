@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.handzap.newsscraper.dto.AuthorDTO;
 import com.handzap.newsscraper.dto.ResponseDTO;
 import com.handzap.newsscraper.entity.Author;
+import com.handzap.newsscraper.exception.DtoEntityMappingException;
 import com.handzap.newsscraper.repository.AuthorRepository;
 import com.handzap.newsscraper.service.NewsAuthorService;
 
@@ -35,7 +36,7 @@ public class NewsAuthorServiceImpl implements NewsAuthorService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public ResponseDTO<AuthorDTO> getAllAuthors() {
+	public ResponseDTO<AuthorDTO> getAllAuthors() throws DtoEntityMappingException {
 		ResponseDTO<AuthorDTO> authorResponseDTO = new ResponseDTO<>();
 		List<Author> fetchedAuthors = authorRepository.findAll();
 		List<AuthorDTO> authors = null;
@@ -43,7 +44,7 @@ public class NewsAuthorServiceImpl implements NewsAuthorService {
 			authors = modelMapper.map(fetchedAuthors, new TypeToken<List<AuthorDTO>>() {
 			}.getType());
 		} catch (IllegalArgumentException | ConfigurationException | MappingException exception) {
-			exception.printStackTrace();
+			throw new DtoEntityMappingException(exception);
 		}
 		authorResponseDTO.setResponse(authors);
 		return authorResponseDTO;
