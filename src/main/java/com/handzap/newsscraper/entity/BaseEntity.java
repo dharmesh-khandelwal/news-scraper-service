@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
+ * Base entity class
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

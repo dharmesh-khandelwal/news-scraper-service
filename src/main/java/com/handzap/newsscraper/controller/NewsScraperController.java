@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.handzap.newsscraper.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +16,14 @@ import com.handzap.newsscraper.service.NewsArticleService;
 import com.handzap.newsscraper.service.NewsAuthorService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
+ * Controller for news scraping service. Contains api for getting all authors,
+ * searching by author name and searching by title and description
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *
@@ -37,16 +40,26 @@ public class NewsScraperController {
 	NewsArticleService newsArticleService;
 
 	@GetMapping(value = "/authors")
+	@ApiOperation(value = "Retrieve all authors", notes = "Retrieve all authors")
 	public ResponseEntity<ResponseDTO<AuthorDTO>> getAllAuthors() throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsAuthorService.getAllAuthors(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/articles", params = "authorName")
-	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByAuthor(@RequestParam String authorName) throws DtoEntityMappingException {
+	@ApiOperation(value = "Search articles based on author", notes = "Search articles whose author-name contains given input")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "When articles are successfully fetched"),
+			@ApiResponse(code = 500, message = "While error occur while fetching article") })
+	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByAuthor(@RequestParam String authorName)
+			throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsArticleService.getArticlesByAuthor(authorName), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/articles", params = { "title", "description" })
+	@ApiOperation(value = "Search articles based on title and description", notes = "Search articles whose title and description contains given input")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "When articles are successfully fetched"),
+			@ApiResponse(code = 500, message = "While error occur while fetching article") })
 	public ResponseEntity<ResponseDTO<ArticleDTO>> getArticlesByTitleAndDescription(@RequestParam String title,
 			@RequestParam String description) throws DtoEntityMappingException {
 		return new ResponseEntity<>(newsArticleService.getArticlesByTitleAndDescription(title, description),

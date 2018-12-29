@@ -1,9 +1,8 @@
-/**
- * 
- */
 package com.handzap.newsscraper.exception;
 
 /**
+ * Custom exception class for DtoEntityMappingException
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

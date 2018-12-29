@@ -14,6 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 import com.handzap.newsscraper.util.IdGeneratorUtil;
 
 /**
+ * The Article entity class
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

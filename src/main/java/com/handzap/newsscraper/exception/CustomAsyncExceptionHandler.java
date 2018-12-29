@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 
 /**
+ * Custom exception handler for AsyncTask
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

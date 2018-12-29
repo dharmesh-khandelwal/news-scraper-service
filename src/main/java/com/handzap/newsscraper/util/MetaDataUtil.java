@@ -9,8 +9,8 @@ import com.handzap.newsscraper.constant.NewsScraperConstant;
 import com.handzap.newsscraper.entity.BaseEntity;
 
 /**
- * MetaDataUtils class provide method to create some meta data which is required
- * before an entity to be saved into database.
+ * MetaDataUtils class provide method to set createdBy and createdDateTime which
+ * is required before an entity can be saved into database.
  * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.handzap.newsscraper.service.impl;
 
 import java.util.List;
@@ -21,6 +18,8 @@ import com.handzap.newsscraper.repository.AuthorRepository;
 import com.handzap.newsscraper.service.NewsAuthorService;
 
 /**
+ * NewsAuthorService implementation class with method to fetch author
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

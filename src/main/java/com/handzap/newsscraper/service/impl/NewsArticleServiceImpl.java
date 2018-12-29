@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.handzap.newsscraper.service.impl;
 
 import java.util.HashSet;
@@ -27,6 +24,8 @@ import com.handzap.newsscraper.service.NewsArticleService;
 import com.handzap.newsscraper.util.MetaDataUtil;
 
 /**
+ * NewsArticleService implementation class with method to fetch and save article
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *
@@ -80,7 +79,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 	 * getArticlesByTitleAndDescription(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ResponseDTO<ArticleDTO> getArticlesByTitleAndDescription(String title, String description) throws DtoEntityMappingException {
+	public ResponseDTO<ArticleDTO> getArticlesByTitleAndDescription(String title, String description)
+			throws DtoEntityMappingException {
 		ResponseDTO<ArticleDTO> authorResponseDTO = new ResponseDTO<>();
 		List<Article> fetchedArticles = articleRepository
 				.findArticlesByTitleIgnoreCaseContainingAndDescriptionIgnoreCaseContaining(title, description);

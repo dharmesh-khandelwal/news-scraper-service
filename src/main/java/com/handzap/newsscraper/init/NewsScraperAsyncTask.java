@@ -24,6 +24,8 @@ import com.handzap.newsscraper.entity.Author;
 import com.handzap.newsscraper.service.NewsArticleService;
 
 /**
+ * This class contains method to scrap news article asynchronously
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *
@@ -31,9 +33,15 @@ import com.handzap.newsscraper.service.NewsArticleService;
 @Component
 public class NewsScraperAsyncTask {
 
+	/**
+	 * The url from which to scrap articles
+	 */
 	@Value("${handzap.newsscraper.url-to-scrap}")
 	private String newsUrl;
 
+	/**
+	 * Instance for NewsArticleService
+	 */
 	@Autowired
 	private NewsArticleService newsArticleService;
 
@@ -41,6 +49,11 @@ public class NewsScraperAsyncTask {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NewsScraperAsyncTask.class);
 
+	/**
+	 * Async function which first get the main page, then get list of articles on
+	 * that page. Then for each article, this function go to the respective article
+	 * page and get title, description and author name
+	 */
 	@Async
 	public void performScraping() {
 		LOGGER.info("{} running in {}", getClass().getSimpleName(), Thread.currentThread());
@@ -65,6 +78,9 @@ public class NewsScraperAsyncTask {
 	}
 
 	/**
+	 * This helper function fetches individual article page, create article entity
+	 * and saves the article in db
+	 * 
 	 * @param htmlAnchor
 	 * @throws ScrappingException
 	 * @throws IOException
@@ -89,7 +105,9 @@ public class NewsScraperAsyncTask {
 	}
 
 	/**
-	 * @return
+	 * This function sets up the client
+	 * 
+	 * @return webclient
 	 */
 	private WebClient setupClient() {
 		WebClient client = new WebClient();
@@ -98,6 +116,13 @@ public class NewsScraperAsyncTask {
 		return client;
 	}
 
+	/**
+	 * Helper function for error handling
+	 * 
+	 * @param e
+	 *            exception
+	 * @return void
+	 */
 	private Void errorHandle(Throwable e) {
 		if (e != null) {
 			LOGGER.error("Error ocurred while scrapping: {}", e.getMessage());

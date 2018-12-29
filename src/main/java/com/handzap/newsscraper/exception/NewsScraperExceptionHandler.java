@@ -9,6 +9,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
+ * Custom exception handler using RestControllerAdvice
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *
@@ -24,8 +26,15 @@ public class NewsScraperExceptionHandler extends ResponseEntityExceptionHandler 
 	}
 
 	@ExceptionHandler(value = DtoEntityMappingException.class)
-	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+	protected ResponseEntity<Object> handleMappingException(RuntimeException ex, WebRequest request) {
 		String bodyOfResponse = "DtoEntityMappingException occured";
+		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR,
+				request);
+	}
+
+	@ExceptionHandler(value = Exception.class)
+	protected ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request) {
+		String bodyOfResponse = "Exception occured";
 		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR,
 				request);
 	}

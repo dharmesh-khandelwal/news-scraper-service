@@ -1,11 +1,10 @@
-/**
- * 
- */
 package com.handzap.newsscraper.dto;
 
 import java.util.List;
 
 /**
+ * Common response DTO class
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

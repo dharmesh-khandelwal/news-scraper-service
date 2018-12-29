@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.handzap.newsscraper.entity;
 
 import java.util.Set;
@@ -17,6 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 import com.handzap.newsscraper.util.IdGeneratorUtil;
 
 /**
+ * The Author entity class
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

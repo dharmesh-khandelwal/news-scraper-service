@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.handzap.newsscraper.repository;
 
 import java.util.List;
@@ -12,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.handzap.newsscraper.entity.Author;
 
 /**
+ * Repository for Author to perform CURD operation
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *

@@ -20,6 +20,14 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Config class for news scraping service. Contains configuration for swagger
+ * and modelmapper
+ * 
+ * @author Dharmesh Khandelwal
+ * @since 1.0.0
+ *
+ */
 @Configuration
 @EnableAsync
 @EnableSwagger2
@@ -31,10 +39,13 @@ public class NewsScraperConfig implements AsyncConfigurer {
 	 */
 	private static final String SERVICE_VERSION = "1.0";
 	/**
-	 * Application Title
+	 * Application title
 	 */
 	private static final String TITLE = "News Scraper Service";
 
+	/**
+	 * Application description
+	 */
 	private static final String DESCRIPTION = "Web service to scrap news articles and query scrap data using REST endpoints";
 
 	/**
@@ -69,6 +80,9 @@ public class NewsScraperConfig implements AsyncConfigurer {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.scheduling.annotation.AsyncConfigurer#getAsyncExecutor()
+	 */
 	@Override
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -76,6 +90,9 @@ public class NewsScraperConfig implements AsyncConfigurer {
 		return executor;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.scheduling.annotation.AsyncConfigurer#getAsyncUncaughtExceptionHandler()
+	 */
 	@Override
 	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
 		return new CustomAsyncExceptionHandler();

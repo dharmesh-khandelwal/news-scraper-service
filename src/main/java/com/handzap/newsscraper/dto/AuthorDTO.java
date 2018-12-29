@@ -1,17 +1,16 @@
-/**
- * 
- */
 package com.handzap.newsscraper.dto;
 
 /**
+ * DTO class for author
+ * 
  * @author Dharmesh Khandelwal
  * @since 1.0.0
  *
  */
 public class AuthorDTO {
-	
+
 	private String id;
-	
+
 	private String name;
 
 	/**
@@ -22,7 +21,8 @@ public class AuthorDTO {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -36,7 +36,8 @@ public class AuthorDTO {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
