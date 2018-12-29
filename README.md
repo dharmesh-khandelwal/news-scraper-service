@@ -1,7 +1,7 @@
 # News Scraper Service
 Web service to scrap news articles and query scrap data using REST endpoints 
 
-It scraps the configured url for news article and stores then in database. Then this data can be searched using REST api.
+It scraps the configured url for news article and stores them in database. Then, this data can be searched using REST api.
 
 Tech stack: **Java, Spring Boot, Spring Data Jpa, HtmlUnit, Swagger**. Database used is **h2** db.
 
@@ -23,11 +23,11 @@ mvn spring-boot:run
 
 2. Run using executable jar
 
-To create excutable jar, run below command:
+To create executable jar, run below command:
 ```
 mvn clean package
 ```
-Then run the application by going tp target folder and running:
+Then run the application by going to target folder and running:
 ```
 java -jar news-scraper-service-1.0.0-SNAPSHOT.jar
 ```
